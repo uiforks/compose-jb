@@ -24,11 +24,9 @@ which creates a Compose application automatically.
 Note that JDK must be at least JDK 11, and to use the native distribution
 packaging, JDK 15 or later must be used.
 
-<img alt="Create new project 1" src="screen3.png" height="500" />
+<img alt="Create new project 1" src="wizard1.png" height="500" />
 
-<img alt="Create new project 2" src="screen4.png" height="500" />
-
-<img alt="Create new project 3" src="screen5.png" height="500" />
+<img alt="Create new project 2" src="wizard2.png" height="500" />
 
 ### IDE plugin
 
@@ -44,8 +42,8 @@ The Compose plugin version used in the wizard above might not be the latest. Upd
 For the latest versions, see the [latest versions](https://github.com/JetBrains/compose-jb/releases) site and the [Kotlin](https://kotlinlang.org/) site.
 ```
 plugins {
-    kotlin("jvm") version "1.6.10"
-    id("org.jetbrains.compose") version "1.1.0"
+    kotlin("jvm") version "1.8.0"
+    id("org.jetbrains.compose") version "1.3.0"
 }
 ```
 
@@ -77,11 +75,9 @@ pluginManagement {
 ```
 Then create `build.gradle.kts` with the following content:
 ``` kotlin
-import org.jetbrains.compose.compose
-
 plugins {
-    kotlin("jvm") version "1.6.10"
-    id("org.jetbrains.compose") version "1.1.0"
+    kotlin("jvm") version "1.8.0"
+    id("org.jetbrains.compose") version "1.3.0"
 }
 
 repositories {
@@ -147,17 +143,23 @@ fun main() = application {
 
 Open `build.gradle.kts` [as a project](https://www.jetbrains.com/help/idea/jetgradle-tool-window.html) in IntelliJ IDEA.
 
-<img alt="New project" src="screen1.png" height="500" />
+<img alt="New project" src="open.png" height="500" />
 
 After you download the Compose for Desktop dependencies from the Maven repositories, your new project is ready
 to go. Open the Gradle toolbar on the right and select `sample/Tasks/compose desktop/run`.
 The first run may take some time. Afterwards, the following dialog will be shown:
 
-<img alt="Application running" src="screen2.gif" height="500" />
+<img alt="Application running" src="app.gif" height="500" />
 
 You can click on the button several times and see that the application reacts and
 updates the UI.
 
 Running and debugging the `main()` function using run gutter is also supported.
 
-<img alt="Application running" src="screen6.png" height="500" />
+<img alt="Application running" src="app-run.png" height="500" />
+
+## Next steps
+
+Congratulations on getting your first Compose Multiplatform project working!  We encourage you to continue playing around with the areas that interest you, and look forward to seeing what you build!  When you're ready to continue learning, we have many more great tutorials available here: [Compose Multiplatform Tutorials](https://github.com/JetBrains/compose-jb#tutorials).
+
+We also have some more advanced [Compose Multiplatorm Example Projects](https://github.com/JetBrains/compose-jb#examples) that you can learn from.

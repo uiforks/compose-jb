@@ -13,13 +13,17 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.jetbrains.compose.ComposeBuildConfig
-import org.jetbrains.compose.desktop.application.internal.ioFile
+import org.jetbrains.compose.internal.utils.clearDirs
+import org.jetbrains.compose.internal.utils.ioFile
+
+private const val DEFAULT_COMPOSE_PROGUARD_RULES_FILE_NAME = "default-compose-desktop-rules.pro"
 
 abstract class AbstractUnpackDefaultComposeApplicationResourcesTask : AbstractComposeDesktopTask() {
     internal class DefaultResourcesProvider(resourcesRootDir: Provider<Directory>) {
         val macIcon: Provider<RegularFile> = resourcesRootDir.map { it.file("default-icon-mac.icns") }
         val windowsIcon: Provider<RegularFile> = resourcesRootDir.map { it.file("default-icon-windows.ico") }
         val linuxIcon: Provider<RegularFile> = resourcesRootDir.map { it.file("default-icon-linux.png") }
+        val defaultComposeProguardRules: Provider<RegularFile> = resourcesRootDir.map { it.file(DEFAULT_COMPOSE_PROGUARD_RULES_FILE_NAME) }
     }
 
     @OutputDirectory
@@ -32,11 +36,12 @@ abstract class AbstractUnpackDefaultComposeApplicationResourcesTask : AbstractCo
 
     @TaskAction
     fun run() {
-        cleanDirs(destinationDir)
+        fileOperations.clearDirs(destinationDir)
 
         unpack(iconSourcePath("mac", "icns"), resources.macIcon)
         unpack(iconSourcePath("windows", "ico"), resources.windowsIcon)
         unpack(iconSourcePath("linux", "png"), resources.linuxIcon)
+        unpack(DEFAULT_COMPOSE_PROGUARD_RULES_FILE_NAME, resources.defaultComposeProguardRules)
     }
 
     private fun iconSourcePath(platformName: String, iconExt: String): String =

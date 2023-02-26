@@ -1,6 +1,7 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import kotlinx.browser.document
+import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
 
 data class DataClassTakesValComposable(val c: @Composable () -> Unit)
@@ -93,3 +94,57 @@ class ClassSavesStringAndComposableIntoVar(
 val GlobalComposableLambdaToShowText: @Composable (text: () -> String) -> Unit = {
     Text(it())
 }
+
+
+// Should be Stable
+sealed interface StableSealedInterface {
+    object A : StableSealedInterface
+    object B : StableSealedInterface
+    object C : StableSealedInterface
+}
+
+data class StableDataClass(val abc: Int)
+data class StableClass(val abc: Int)
+class StableTypedClass<T>(val abc: T)
+
+
+
+class ComposableCollectionImpl : ComposableCollection {
+
+    private val _list = mutableListOf<@Composable () -> Unit>()
+
+    override val list: List<@Composable () -> Unit>
+        get() = _list
+
+    override fun add(c: @Composable () -> Unit) {
+        _list.add(c)
+    }
+}
+
+internal fun createComposableCollection(): ComposableCollection = ComposableCollectionImpl()
+
+private class ComposableContentImpl : ComposableContent {
+
+    @Composable
+    override fun ComposableContent() {
+        Div { Text("ComposableContent") }
+    }
+}
+
+internal fun createComposableContent(): ComposableContent = ComposableContentImpl()
+
+internal class ComposableContentDelegation(private val impl: ComposableContent) : ComposableContent by impl
+
+
+class AbstrComposableContentExtendImpl : AbstrComposableContent() {
+
+    @Composable
+    override fun ComposableContent() {
+        super.ComposableContent()
+        Div {
+            Text("AbstrComposableContentImpl")
+        }
+    }
+}
+
+class AbstrComposableContentNoExtendImpl : AbstrComposableContent()

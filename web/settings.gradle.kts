@@ -1,5 +1,5 @@
 pluginManagement {
-    val COMPOSE_CORE_VERSION: String by settings
+    val COMPOSE_CORE_VERSION = extra["compose.version"] as String
     println("[build] compose core version: $COMPOSE_CORE_VERSION")
 
     // pluginManagement section won't see outer scope, hence the FQ names
@@ -60,10 +60,9 @@ fun module(name: String, path: String) {
 
 module(":web-core", "core")
 module(":web-svg", "svg")
-module(":web-widgets", "widgets")
 module(":web-integration-core", "integration-core")
-module(":web-integration-widgets", "integration-widgets")
 module(":compose-compiler-integration", "compose-compiler-integration")
+module(":compose-compiler-integration-lib", "compose-compiler-integration/lib")
 module(":internal-web-core-runtime", "internal-web-core-runtime")
 module(":test-utils", "test-utils")
 

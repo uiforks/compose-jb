@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(31)
+    compileSdk = 33
 
     defaultConfig {
-        minSdkVersion(26)
-        targetSdkVersion(31)
+        minSdk = 26
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
     }
@@ -22,5 +22,5 @@ android {
 
 dependencies {
     implementation(project(":common"))
-    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.activity:activity-compose:1.5.0")
 }

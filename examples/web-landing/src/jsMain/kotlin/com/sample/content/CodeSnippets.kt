@@ -1,9 +1,6 @@
 package com.sample.content
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import com.sample.HighlightJs
@@ -13,7 +10,7 @@ import org.jetbrains.compose.web.css.keywords.auto
 import org.w3c.dom.HTMLElement
 
 private fun HTMLElement.setHighlightedCode(code: String) {
-    innerText = code
+    textContent = code
     HighlightJs.highlightElement(this)
 }
 
@@ -263,9 +260,9 @@ fun FormattedCodeSnippet(code: String, language: String = "kotlin") {
                 backgroundColor(Color("transparent"))
             }
         }) {
-            @Suppress("DEPRECATION")
-            DomSideEffect(code) {
-                it.setHighlightedCode(code)
+            DisposableEffect(code) {
+                scopeElement.setHighlightedCode(code)
+                onDispose {  }
             }
         }
     }
